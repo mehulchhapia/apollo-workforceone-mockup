@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="Apollo WorkforceOne — Platform Mockup v2">
+<meta property="og:description" content="The B2B Commercial Engine for India's nursing workforce — Hire, Train, Deploy at scale.">
+<meta property="og:type" content="website">
+<title>Apollo WorkforceOne — Platform Mockup v2</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B3D5B;
+    --navy-dark: #082C43;
+    --teal: #00897B;
+    --teal-light: #4DB6AC;
+    --orange: #F57C00;
+    --gold: #FFC85C;
+    --light: #F5F7FA;
+    --success: #10B981;
+    --warn: #F59E0B;
+    --danger: #EF4444;
+    --bronze: #B87333;
+    --silver: #A0A0A0;
+    --gold-tier: #DAA520;
+    --platinum: #7B68AE;
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #F5F7FA; }
+  .bg-navy { background-color: #0B3D5B; }
+  .bg-navy-dark { background-color: #082C43; }
+  .bg-teal { background-color: #00897B; }
+  .bg-teal-light { background-color: #E0F2F1; }
+  .bg-orange { background-color: #F57C00; }
+  .text-navy { color: #0B3D5B; }
+  .text-teal { color: #00897B; }
+  .text-orange { color: #F57C00; }
+  .border-navy { border-color: #0B3D5B; }
+  .border-teal { border-color: #00897B; }
+  .view { display: none; }
+  .view.active { display: block; }
+  .nav-btn { transition: all 0.2s ease; }
+  .nav-btn.active { background-color: rgba(255,255,255,0.15); }
+  .nav-btn:hover:not(.active) { background-color: rgba(255,255,255,0.08); }
+  .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03); }
+  .card-hover:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-2px); transition: all 0.2s; }
+  .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+  .badge-teal { background: #E0F2F1; color: #00897B; }
+  .badge-green { background: #D1FAE5; color: #065F46; }
+  .badge-orange { background: #FED7AA; color: #9A3412; }
+  .badge-navy { background: #DBEAFE; color: #1E40AF; }
+  .badge-red { background: #FEE2E2; color: #991B1B; }
+  .badge-gold { background: #FEF3C7; color: #92400E; }
+  .badge-purple { background: #EDE9FE; color: #5B21B6; }
+  .skill-bar { height: 6px; background: #E5E7EB; border-radius: 3px; overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 3px; }
+  .skill-fill-teal { background: linear-gradient(90deg, #00897B, #4DB6AC); }
+  .skill-fill-orange { background: linear-gradient(90deg, #F57C00, #FFB74D); }
+  .skill-fill-bronze { background: linear-gradient(90deg, #B87333, #D4956A); }
+  .skill-fill-silver { background: linear-gradient(90deg, #A0A0A0, #C0C0C0); }
+  .skill-fill-gold { background: linear-gradient(90deg, #DAA520, #F0C040); }
+  .skill-fill-platinum { background: linear-gradient(90deg, #7B68AE, #9B8FBE); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .animate-pulse-slow { animation: pulse 3s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .gradient-navy { background: linear-gradient(135deg, #0B3D5B 0%, #082C43 100%); }
+  .gradient-teal { background: linear-gradient(135deg, #00897B 0%, #00695C 100%); }
+  .score-ring { transform: rotate(-90deg); }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .staircase-step { transition: all 0.3s ease; }
+  .staircase-step:hover { transform: translateY(-4px); }
+  .bond-bar { height: 8px; background: #E5E7EB; border-radius: 4px; overflow: hidden; position: relative; }
+  .bond-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+  .tab-btn { transition: all 0.15s ease; }
+  .tab-btn.active { border-bottom: 2px solid #00897B; color: #00897B; font-weight: 600; }
+  .audit-score { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; font-size: 20px; font-weight: 800; }
+</style>
+</head>
+<body>
+
+<!-- ============= TOP NAV ============= -->
+<nav class="gradient-navy text-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-3">
+    <div class="flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 md:gap-3 min-w-0">
+        <div class="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L4 7v10l8 5 8-5V7l-8-5z" fill="#0B3D5B"/>
+            <path d="M12 8v8M8 12h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <div class="font-bold text-base md:text-lg leading-tight truncate">Apollo WorkforceOne</div>
+          <div class="text-[10px] md:text-xs text-white/70 truncate hidden sm:block">B2B Commercial Engine · Hire · Train · Deploy</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 md:gap-3 flex-shrink-0">
+        <div class="text-right text-[10px] md:text-xs hidden sm:block">
+          <div class="font-medium">DEMO MODE</div>
+          <div class="text-white/60">v2.0 · GTM Engine</div>
+        </div>
+        <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-teal flex items-center justify-center font-semibold text-xs md:text-sm">MC</div>
+      </div>
+    </div>
+    <div class="mt-2 md:mt-3 -mx-4 md:mx-0 px-4 md:px-0 overflow-x-auto scrollbar-hide">
+      <div class="flex items-center gap-1 bg-white/5 rounded-lg p-1 w-max md:w-auto md:inline-flex">
+        <button onclick="switchView('overview')" id="nav-overview" class="nav-btn active px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium whitespace-nowrap">Overview</button>
+        <button onclick="switchView('hospital')" id="nav-hospital" class="nav-btn px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium whitespace-nowrap">Hospital CHRO</button>
+        <button onclick="switchView('nurse')" id="nav-nurse" class="nav-btn px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium whitespace-nowrap">Nurse Passport</button>
+        <button onclick="switchView('htd')" id="nav-htd" class="nav-btn px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium whitespace-nowrap">HTD Console</button>
+        <button onclick="switchView('ops')" id="nav-ops" class="nav-btn px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium whitespace-nowrap">Ops Center</button>
+        <button onclick="switchView('audit')" id="nav-audit" class="nav-btn px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium whitespace-nowrap">Clinical Audit</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============= VIEW 1: OVERVIEW ============= -->
+<div id="view-overview" class="view active">
+  <div class="gradient-navy text-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-16">
+      <div class="max-w-3xl">
+        <div class="inline-block px-3 py-1 rounded-full bg-white/10 text-[10px] md:text-xs font-semibold mb-3 md:mb-4">PLATFORM CONCEPT · v2.0 · B2B COMMERCIAL ENGINE</div>
+        <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight mb-3 md:mb-4">The B2B engine that<br class="hidden sm:block"> monetises Apollo's<br class="hidden sm:block"> training assets.</h1>
+        <p class="text-sm md:text-xl text-white/80 mb-6 md:mb-8">MedSkills and Medvarsity already exist. WorkforceOne is the commercial engine that packages them into outcome-linked B2B solutions — through Consultative Audits, HTD deployment, and the Capability Staircase.</p>
+        <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+          <button onclick="switchView('hospital')" class="bg-white text-navy px-5 md:px-6 py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-white/90">Hospital CHRO Portal →</button>
+          <button onclick="switchView('audit')" class="border-2 border-white/30 px-5 md:px-6 py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-white/10">Self-Service Audit Tool →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
+    <!-- B2B GTM 3-Layer Architecture -->
+    <h2 class="text-xl md:text-2xl font-bold text-navy mb-2">Three-Layer GTM Architecture</h2>
+    <p class="text-sm md:text-base text-gray-600 mb-6 md:mb-8">What exists today (B2C) vs. what we're building (B2B commercial engine)</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
+      <!-- Layer 1 -->
+      <div class="card p-6 card-hover border-t-4" style="border-color: #00897B;">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-teal flex items-center justify-center text-white font-bold text-lg">1</div>
+          <div>
+            <h3 class="font-bold text-navy text-sm">Enterprise Demand Creation</h3>
+            <span class="badge badge-teal">LAYER 1</span>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Consultative Clinical Audits create demand by quantifying the cost of nursing skill gaps at every hospital.</p>
+        <div class="bg-teal/5 rounded-lg p-3 text-xs space-y-1">
+          <div class="flex justify-between"><span class="text-gray-600">Workforce Data Audit</span><span class="text-teal font-semibold">Free</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Competency Mapping</span><span class="text-teal font-semibold">₹2-5L</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Financial Impact Model</span><span class="text-teal font-semibold">Included</span></div>
+        </div>
+        <button onclick="switchView('audit')" class="mt-4 text-teal text-xs font-semibold hover:underline">View Audit Tool →</button>
+      </div>
+
+      <!-- Layer 2 -->
+      <div class="card p-6 card-hover border-t-4" style="border-color: #F57C00;">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-orange flex items-center justify-center text-white font-bold text-lg">2</div>
+          <div>
+            <h3 class="font-bold text-navy text-sm">HTD Deployment Engine</h3>
+            <span class="badge badge-orange">LAYER 2</span>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Hire nurses from Tier 2/3 cities, train them in specialty skills, deploy on managed contracts with service bonds.</p>
+        <div class="bg-orange/5 rounded-lg p-3 text-xs space-y-1">
+          <div class="flex justify-between"><span class="text-gray-600">Hire from Tier 2/3</span><span class="text-orange font-semibold">270 Y1</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Train (8-16 weeks)</span><span class="text-orange font-semibold">3 programs</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Deploy + Bond</span><span class="text-orange font-semibold">18-mo bond</span></div>
+        </div>
+        <button onclick="switchView('htd')" class="mt-4 text-orange text-xs font-semibold hover:underline">View HTD Console →</button>
+      </div>
+
+      <!-- Layer 3 -->
+      <div class="card p-6 card-hover border-t-4" style="border-color: #FFC85C;">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" style="background: #DAA520;">3</div>
+          <div>
+            <h3 class="font-bold text-navy text-sm">Outcome-Linked Bundling</h3>
+            <span class="badge badge-gold">LAYER 3</span>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Package MedSkills + Medvarsity + clinical rotations into outcome-linked bundles sold via Enterprise contracts.</p>
+        <div class="bg-yellow-50 rounded-lg p-3 text-xs space-y-1">
+          <div class="flex justify-between"><span class="text-gray-600">Capability Staircase</span><span class="font-semibold" style="color: #DAA520;">4 tiers</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Hospital-Sponsored</span><span class="font-semibold" style="color: #DAA520;">40% mix</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Training ROI linked</span><span class="font-semibold" style="color: #DAA520;">Measurable</span></div>
+        </div>
+        <button onclick="switchView('hospital')" class="mt-4 text-xs font-semibold hover:underline" style="color: #DAA520;">View Hospital Portal →</button>
+      </div>
+    </div>
+
+    <!-- Capability Staircase Visual -->
+    <h2 class="text-xl md:text-2xl font-bold text-navy mb-2">The Capability Staircase</h2>
+    <p class="text-sm md:text-base text-gray-600 mb-6">Four tiers of structured upskilling — from NABH compliance to international readiness</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-12">
+      <div class="staircase-step card p-5 border-b-4" style="border-color: #B87333;">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background: #B87333;">B</div>
+          <div>
+            <div class="font-bold text-sm text-navy">Bronze</div>
+            <div class="text-[10px] text-gray-500">NABH Compliance</div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 mb-3">2-4 weeks · ₹15-25K</div>
+        <p class="text-xs text-gray-500">Basic protocols, infection control, documentation standards. Gets nurses NABH 5th Edition ready.</p>
+        <div class="mt-3 pt-3 border-t border-gray-100">
+          <span class="badge" style="background: #B8733320; color: #B87333;">Hospital-Sponsored</span>
+        </div>
+      </div>
+
+      <div class="staircase-step card p-5 border-b-4" style="border-color: #A0A0A0;">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background: #A0A0A0;">S</div>
+          <div>
+            <div class="font-bold text-sm text-navy">Silver</div>
+            <div class="text-[10px] text-gray-500">Specialty Certification</div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 mb-3">8-12 weeks · ₹60-85K</div>
+        <p class="text-xs text-gray-500">ICU, OT, Dialysis, Emergency specialisations. Medvarsity-certified with clinical rotations.</p>
+        <div class="mt-3 pt-3 border-t border-gray-100">
+          <span class="badge" style="background: #A0A0A020; color: #707070;">Self-Pay / Sponsored</span>
+        </div>
+      </div>
+
+      <div class="staircase-step card p-5 border-b-4" style="border-color: #DAA520;">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background: #DAA520;">G</div>
+          <div>
+            <div class="font-bold text-sm text-navy">Gold</div>
+            <div class="text-[10px] text-gray-500">Advanced Practice</div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 mb-3">16-24 weeks · ₹1.5-2.5L</div>
+        <p class="text-xs text-gray-500">Critical care lead, charge nurse, clinical educator roles. Unlocks ₹8-12L salary band.</p>
+        <div class="mt-3 pt-3 border-t border-gray-100">
+          <span class="badge" style="background: #DAA52020; color: #92400E;">HTD / Enterprise</span>
+        </div>
+      </div>
+
+      <div class="staircase-step card p-5 border-b-4" style="border-color: #7B68AE;">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background: #7B68AE;">P</div>
+          <div>
+            <div class="font-bold text-sm text-navy">Platinum</div>
+            <div class="text-[10px] text-gray-500">International Ready</div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 mb-3">24-36 weeks · ₹2.5-4L</div>
+        <p class="text-xs text-gray-500">GWD corridor ready — UK NMC, Gulf MOH, IELTS 7.0. Feeds existing international pipeline.</p>
+        <div class="mt-3 pt-3 border-t border-gray-100">
+          <span class="badge badge-purple">GWD Pipeline</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mb-8 md:mb-12">
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Nurses on Platform</div>
+        <div class="text-2xl font-bold text-navy mt-1">12,847</div>
+        <div class="text-[10px] text-teal mt-1">+ 1,240 this month</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">HTD Deployed</div>
+        <div class="text-2xl font-bold text-navy mt-1">89</div>
+        <div class="text-[10px] text-orange mt-1">32% of Y1 target</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Active Bonds</div>
+        <div class="text-2xl font-bold text-navy mt-1">76</div>
+        <div class="text-[10px] text-teal mt-1">88% compliance</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Audits Delivered</div>
+        <div class="text-2xl font-bold text-navy mt-1">12</div>
+        <div class="text-[10px] text-teal mt-1">67% conversion</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Training ROI</div>
+        <div class="text-2xl font-bold text-navy mt-1">3.2×</div>
+        <div class="text-[10px] text-teal mt-1">vs replacement cost</div>
+      </div>
+    </div>
+
+    <!-- What Exists vs What We Build -->
+    <div class="gradient-teal rounded-2xl p-5 md:p-8 text-white">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div>
+          <div class="text-xs uppercase font-semibold text-white/60 mb-3">WHAT EXISTS TODAY (B2C)</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 bg-white/10 rounded-lg p-3">
+              <span class="text-white/60 text-sm">→</span>
+              <div><div class="text-sm font-semibold">MedSkills</div><div class="text-xs text-white/70">B2C nurse training marketplace</div></div>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 rounded-lg p-3">
+              <span class="text-white/60 text-sm">→</span>
+              <div><div class="text-sm font-semibold">Medvarsity</div><div class="text-xs text-white/70">B2C online certification platform</div></div>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 rounded-lg p-3">
+              <span class="text-white/60 text-sm">→</span>
+              <div><div class="text-sm font-semibold">GWD International</div><div class="text-xs text-white/70">UK/Gulf deployment corridors</div></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs uppercase font-semibold text-white/60 mb-3">WHAT I'M BUILDING (B2B ENGINE)</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 bg-white/20 rounded-lg p-3 border border-white/20">
+              <div class="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center text-xs font-bold">1</div>
+              <div><div class="text-sm font-semibold">Consultative Audit → Pipeline</div><div class="text-xs text-white/80">Enterprise demand creation engine</div></div>
+            </div>
+            <div class="flex items-center gap-2 bg-white/20 rounded-lg p-3 border border-white/20">
+              <div class="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center text-xs font-bold">2</div>
+              <div><div class="text-sm font-semibold">HTD + Bond Model</div><div class="text-xs text-white/80">Hire-Train-Deploy with retention bonds</div></div>
+            </div>
+            <div class="flex items-center gap-2 bg-white/20 rounded-lg p-3 border border-white/20">
+              <div class="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center text-xs font-bold">3</div>
+              <div><div class="text-sm font-semibold">Capability Staircase Bundles</div><div class="text-xs text-white/80">Outcome-linked MedSkills + Medvarsity packages</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= VIEW 2: HOSPITAL CHRO DASHBOARD ============= -->
+<div id="view-hospital" class="view">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 md:gap-4 mb-5 md:mb-6">
+      <div class="min-w-0">
+        <div class="text-xs text-gray-500 uppercase font-semibold">Hospital CHRO Portal</div>
+        <h1 class="text-xl md:text-3xl font-bold text-navy">Fortis Hospital, Bannerghatta</h1>
+        <p class="text-gray-600 text-xs md:text-sm">Dr. Rajesh Kumar, Chief HR Officer · 450 beds · 620 nursing staff</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="flex-1 md:flex-none px-3 md:px-4 py-2 bg-white border border-gray-300 rounded-lg text-xs md:text-sm font-medium hover:bg-gray-50">Export Report</button>
+        <button onclick="switchView('audit')" class="flex-1 md:flex-none px-3 md:px-4 py-2 bg-teal text-white rounded-lg text-xs md:text-sm font-medium">Run Clinical Audit</button>
+      </div>
+    </div>
+
+    <!-- Competency Health Score Hero -->
+    <div class="card p-4 md:p-6 mb-5 md:mb-6 bg-gradient-to-br from-white to-blue-50">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-center">
+        <div class="md:col-span-1 flex justify-center">
+          <div class="relative w-32 h-32 md:w-40 md:h-40">
+            <svg class="score-ring w-32 h-32 md:w-40 md:h-40" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="70" fill="none" stroke="#E5E7EB" stroke-width="12"/>
+              <circle cx="80" cy="80" r="70" fill="none" stroke="#F57C00" stroke-width="12"
+                      stroke-dasharray="439.8" stroke-dashoffset="158.3" stroke-linecap="round"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <div class="text-4xl md:text-5xl font-bold text-navy">64</div>
+              <div class="text-xs text-gray-500 uppercase font-semibold">of 100</div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-3">
+          <div class="text-xs text-orange font-bold uppercase tracking-wide">Competency Health Score™</div>
+          <h3 class="text-lg md:text-2xl font-bold text-navy mt-1">Moderate Risk — Action Required</h3>
+          <p class="text-gray-600 text-xs md:text-sm mt-2">Your nursing workforce has <b>critical skill gaps</b> in ICU (Level-3) and Dialysis. Current attrition of 34% is <b>9 points above</b> the tier-1 hospital benchmark. Estimated annual margin leak: <b class="text-orange">₹4.8 Cr/year</b>.</p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-4 pt-4 border-t border-gray-200">
+            <div>
+              <div class="text-xs text-gray-500">Clinical Competency</div>
+              <div class="text-lg font-bold text-navy">58 <span class="text-xs text-red-500">▼ 12</span></div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">Attrition Rate</div>
+              <div class="text-lg font-bold text-navy">34% <span class="text-xs text-red-500">▲ 9</span></div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">NABH Readiness</div>
+              <div class="text-lg font-bold text-navy">71% <span class="text-xs text-red-500">▼ 14</span></div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">Training ROI</div>
+              <div class="text-lg font-bold text-navy">2.1× <span class="text-xs text-green-500">▲ 0.3</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+      <!-- Training ROI Tracker -->
+      <div class="md:col-span-2 card p-4 md:p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-navy">Training ROI Tracker</h3>
+          <span class="badge badge-green">Saving ₹42L vs replacement</span>
+        </div>
+        <p class="text-xs text-gray-500 mb-4">Training investment vs. replacement cost comparison — proves why upskilling existing staff beats new hiring.</p>
+        <div class="space-y-4">
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <div class="font-semibold text-sm text-navy">ICU Level-3 Certification (Gold)</div>
+                <div class="text-xs text-gray-500">12 nurses enrolled · Medvarsity certified</div>
+              </div>
+              <span class="badge badge-green">3.5× ROI</span>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mt-3 text-xs">
+              <div><span class="text-gray-500">Training cost:</span> <b class="text-navy">₹6.0L</b></div>
+              <div><span class="text-gray-500">Replace cost:</span> <b class="text-red-500">₹42L</b></div>
+              <div><span class="text-gray-500">Net saving:</span> <b class="text-green-600">₹36L</b></div>
+            </div>
+            <div class="skill-bar mt-2"><div class="skill-fill skill-fill-gold" style="width: 67%"></div></div>
+            <div class="text-[10px] text-gray-500 mt-1">67% complete · ETA: 6 weeks</div>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <div class="font-semibold text-sm text-navy">NABH 5th Edition Readiness (Bronze)</div>
+                <div class="text-xs text-gray-500">45 nurses enrolled · MedSkills delivered</div>
+              </div>
+              <span class="badge badge-green">8.2× ROI</span>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mt-3 text-xs">
+              <div><span class="text-gray-500">Training cost:</span> <b class="text-navy">₹4.5L</b></div>
+              <div><span class="text-gray-500">NABH penalty risk:</span> <b class="text-red-500">₹37L</b></div>
+              <div><span class="text-gray-500">Risk avoided:</span> <b class="text-green-600">₹32.5L</b></div>
+            </div>
+            <div class="skill-bar mt-2"><div class="skill-fill skill-fill-bronze" style="width: 90%"></div></div>
+            <div class="text-[10px] text-gray-500 mt-1">90% complete · ETA: 1 week</div>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <div class="font-semibold text-sm text-navy">Dialysis Specialist (Silver)</div>
+                <div class="text-xs text-gray-500">8 nurses enrolled · Medvarsity + clinical rotation</div>
+              </div>
+              <span class="badge badge-teal">2.8× ROI</span>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mt-3 text-xs">
+              <div><span class="text-gray-500">Training cost:</span> <b class="text-navy">₹5.6L</b></div>
+              <div><span class="text-gray-500">Replace cost:</span> <b class="text-red-500">₹28L</b></div>
+              <div><span class="text-gray-500">Net saving:</span> <b class="text-green-600">₹22.4L</b></div>
+            </div>
+            <div class="skill-bar mt-2"><div class="skill-fill skill-fill-silver" style="width: 40%"></div></div>
+            <div class="text-[10px] text-gray-500 mt-1">40% complete · ETA: 8 weeks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Open Requisitions + HTD Pipeline -->
+      <div class="space-y-5 md:space-y-6">
+        <div class="card p-4 md:p-6">
+          <h3 class="font-bold text-navy mb-3">Open Requisitions</h3>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between p-2 border border-gray-200 rounded-lg">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center"><span class="text-[10px] font-bold text-red-600">ICU</span></div>
+                <div><div class="font-semibold text-xs text-navy">ICU Nurse — Level 3</div><div class="text-[10px] text-gray-500">4 openings</div></div>
+              </div>
+              <span class="badge badge-red">Urgent</span>
+            </div>
+            <div class="flex items-center justify-between p-2 border border-gray-200 rounded-lg">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center"><span class="text-[10px] font-bold text-blue-600">OT</span></div>
+                <div><div class="font-semibold text-xs text-navy">OT Cardiac Nurse</div><div class="text-[10px] text-gray-500">2 openings</div></div>
+              </div>
+              <span class="badge badge-orange">High</span>
+            </div>
+            <div class="flex items-center justify-between p-2 border border-gray-200 rounded-lg">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center"><span class="text-[10px] font-bold text-purple-600">DLY</span></div>
+                <div><div class="font-semibold text-xs text-navy">Dialysis Tech-Nurse</div><div class="text-[10px] text-gray-500">6 positions</div></div>
+              </div>
+              <span class="badge badge-red">Urgent</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-4 md:p-6">
+          <h3 class="font-bold text-navy mb-3">HTD Nurses Deployed Here</h3>
+          <div class="text-center mb-3">
+            <div class="text-3xl font-bold text-orange">14</div>
+            <div class="text-xs text-gray-500">bonded nurses active</div>
+          </div>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between"><span class="text-gray-600">ICU (Gold-tier trained)</span><span class="font-semibold">6</span></div>
+            <div class="skill-bar"><div class="skill-fill skill-fill-gold" style="width: 43%"></div></div>
+            <div class="flex justify-between mt-2"><span class="text-gray-600">Dialysis (Silver-tier)</span><span class="font-semibold">4</span></div>
+            <div class="skill-bar"><div class="skill-fill skill-fill-silver" style="width: 29%"></div></div>
+            <div class="flex justify-between mt-2"><span class="text-gray-600">ER (Silver-tier)</span><span class="font-semibold">4</span></div>
+            <div class="skill-bar"><div class="skill-fill skill-fill-silver" style="width: 29%"></div></div>
+          </div>
+          <div class="mt-3 pt-3 border-t border-gray-200 text-xs">
+            <div class="text-gray-500">Avg bond remaining</div>
+            <div class="text-lg font-bold text-navy">11.2 months</div>
+            <div class="text-[10px] text-green-600">0 breakages this quarter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AKVL Recommendation strip -->
+    <div class="mt-6 card p-5 border-l-4 border-orange">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-lg bg-orange/10 flex items-center justify-center flex-shrink-0">
+          <span class="text-orange text-xl">💡</span>
+        </div>
+        <div class="flex-1">
+          <div class="font-semibold text-navy">AKVL Recommendation Engine</div>
+          <p class="text-sm text-gray-600 mt-1">Your ICU Level-3 skill gap can be closed in 6 weeks by enrolling 12 existing staff nurses in Medvarsity's Gold-tier ICU certification. Cost: <b>₹6L</b> vs replacement cost of <b>₹42L</b>. This would lift your Competency Health Score from 64 → 78. Additionally, 4 of your open HTD positions can be filled within 3 weeks from our bonded nurse pipeline.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <button class="px-3 py-1.5 bg-teal text-white rounded-md text-xs font-semibold">Enroll in Gold Tier →</button>
+            <button class="px-3 py-1.5 bg-orange text-white rounded-md text-xs font-semibold">Request HTD Nurses →</button>
+            <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-700 rounded-md text-xs font-semibold">Download Full Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= VIEW 3: NURSE CAREER PASSPORT ============= -->
+<div id="view-nurse" class="view">
+  <div class="max-w-5xl mx-auto px-4 md:px-6 py-6 md:py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+      <!-- Phone-style mockup -->
+      <div class="md:col-span-1">
+        <div class="bg-navy rounded-[2.5rem] p-3 shadow-2xl mx-auto" style="max-width: 320px;">
+          <div class="bg-white rounded-[2rem] overflow-hidden">
+            <div class="gradient-navy text-white px-5 pt-6 pb-4">
+              <div class="flex items-center justify-between text-xs mb-3">
+                <span>9:41</span>
+                <span>●●● 100%</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-teal flex items-center justify-center font-bold">PS</div>
+                <div>
+                  <div class="text-xs text-white/70">Good morning</div>
+                  <div class="font-bold">Priya Sharma</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Career Passport Badge -->
+            <div class="px-5 py-3 bg-gradient-to-r from-teal to-teal-light text-white">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-[10px] text-white/80">Career Passport</div>
+                  <div class="font-bold flex items-center gap-1 text-sm">
+                    <span>Gold Tier</span> <span>✓</span>
+                  </div>
+                </div>
+                <div class="text-right text-[10px] text-white/80">
+                  Staircase Level<br><b class="text-white">3 of 4</b>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staircase Progress -->
+            <div class="px-5 py-3">
+              <div class="text-[10px] text-gray-500 font-semibold uppercase mb-2">Capability Journey</div>
+              <div class="flex items-end gap-1 h-16">
+                <div class="flex-1 rounded-t-md" style="height: 25%; background: #B87333;" title="Bronze"></div>
+                <div class="flex-1 rounded-t-md" style="height: 50%; background: #A0A0A0;" title="Silver"></div>
+                <div class="flex-1 rounded-t-md animate-pulse-slow" style="height: 75%; background: #DAA520;" title="Gold"></div>
+                <div class="flex-1 rounded-t-md" style="height: 100%; background: #E0E0E0;" title="Platinum (locked)"></div>
+              </div>
+              <div class="flex gap-1 text-[8px] text-gray-500 mt-1">
+                <div class="flex-1 text-center">Bronze ✓</div>
+                <div class="flex-1 text-center">Silver ✓</div>
+                <div class="flex-1 text-center font-bold" style="color: #DAA520;">Gold ▶</div>
+                <div class="flex-1 text-center">Platinum 🔒</div>
+              </div>
+            </div>
+
+            <!-- Bond Status -->
+            <div class="px-5 py-3 bg-orange/5">
+              <div class="text-[10px] text-gray-500 font-semibold uppercase mb-1">Service Bond</div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-gray-700">HTD bond remaining</span>
+                <span class="font-bold text-orange">11 months</span>
+              </div>
+              <div class="bond-bar"><div class="bond-fill bg-orange" style="width: 39%"></div></div>
+              <div class="text-[10px] text-gray-500 mt-1">₹33K remaining of ₹55K · Pro-rata declining</div>
+            </div>
+
+            <!-- Earnings -->
+            <div class="px-5 py-3">
+              <div class="text-xs text-gray-500">This Month Earnings</div>
+              <div class="text-xl font-bold text-navy">₹42,800</div>
+              <div class="text-[10px] text-teal">+ 18% since Silver cert</div>
+            </div>
+
+            <!-- Bottom nav -->
+            <div class="border-t border-gray-200 px-5 py-2.5 flex justify-around text-[10px] text-gray-500">
+              <div class="text-teal font-semibold">Home</div>
+              <div>Jobs</div>
+              <div>Learn</div>
+              <div>Bond</div>
+              <div>Profile</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail panels -->
+      <div class="md:col-span-2 space-y-5 md:space-y-6">
+        <div>
+          <div class="text-xs text-gray-500 uppercase font-semibold">Nurse Career Passport</div>
+          <h1 class="text-xl md:text-3xl font-bold text-navy">Priya Sharma</h1>
+          <p class="text-gray-600 text-xs md:text-sm">B.Sc Nursing · 5 years experience · HTD Deployed @ Fortis Bannerghatta · Bangalore</p>
+        </div>
+
+        <!-- Capability Staircase Progress -->
+        <div class="card p-4 md:p-6">
+          <h3 class="font-bold text-navy mb-4">Capability Staircase Progress</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background: #B8733320;">
+                <span style="color: #B87333;" class="font-bold">✓</span>
+              </div>
+              <div class="flex-1">
+                <div class="font-semibold text-sm text-navy">Bronze — NABH Compliance</div>
+                <div class="text-xs text-gray-500">Completed · Feb 2025 · MedSkills · ₹18K (Hospital-Sponsored)</div>
+              </div>
+              <span class="text-xs text-gray-400">Base: ₹3.2L</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background: #A0A0A020;">
+                <span style="color: #A0A0A0;" class="font-bold">✓</span>
+              </div>
+              <div class="flex-1">
+                <div class="font-semibold text-sm text-navy">Silver — ICU Specialist</div>
+                <div class="text-xs text-gray-500">Completed · Aug 2025 · Medvarsity · ₹72K (Self-Pay + subsidy)</div>
+              </div>
+              <span class="text-xs text-teal font-semibold">+42% salary</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 bg-orange/5 border border-orange/30 rounded-lg">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 animate-pulse-slow" style="background: #DAA52030;">
+                <span style="color: #DAA520;" class="font-bold">▶</span>
+              </div>
+              <div class="flex-1">
+                <div class="font-semibold text-sm text-navy">Gold — Critical Care Lead</div>
+                <div class="text-xs text-gray-500">In progress · Week 4 of 16 · ₹1.8L (HTD-sponsored, bonded)</div>
+                <div class="skill-bar mt-2"><div class="skill-fill skill-fill-gold" style="width: 25%"></div></div>
+              </div>
+              <span class="text-xs text-orange font-semibold">→ ₹8.5L roles</span>
+            </div>
+            <div class="flex items-center gap-3 opacity-50">
+              <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-gray-400 font-bold">🔒</span>
+              </div>
+              <div class="flex-1">
+                <div class="font-semibold text-sm text-navy">Platinum — International (GWD)</div>
+                <div class="text-xs text-gray-500">Requires Gold + IELTS 6.5 · Unlocks UK/Gulf corridors</div>
+              </div>
+              <span class="text-xs text-gray-500">₹15-25L</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bond Status Detail -->
+        <div class="card p-4 md:p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-navy">Service Bond Status</h3>
+            <span class="badge badge-orange">Active</span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <div>
+              <div class="text-xs text-gray-500">Bond Duration</div>
+              <div class="text-lg font-bold text-navy">18 months</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">Time Served</div>
+              <div class="text-lg font-bold text-teal">7 months</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">Remaining Value</div>
+              <div class="text-lg font-bold text-orange">₹33,611</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">Original Value</div>
+              <div class="text-lg font-bold text-gray-400">₹55,000</div>
+            </div>
+          </div>
+          <div class="bond-bar" style="height: 12px;">
+            <div class="bond-fill" style="width: 39%; background: linear-gradient(90deg, #10B981, #00897B);"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-gray-500 mt-1">
+            <span>Start: Sep 2025</span>
+            <span>39% served</span>
+            <span>End: Mar 2027</span>
+          </div>
+          <div class="mt-4 p-3 bg-blue-50 rounded-lg text-xs text-gray-600">
+            <b class="text-navy">Pro-rata declining:</b> Bond value decreases linearly each month. If you complete the full 18 months, exit value = ₹0. Early exit is permitted by paying the remaining pro-rata amount under Indian Contract Act.
+          </div>
+        </div>
+
+        <!-- Skills profile -->
+        <div class="card p-4 md:p-6">
+          <h3 class="font-bold text-navy mb-4">Verified Skills Profile</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">Ventilator Management</span><span class="font-semibold">92%</span></div>
+              <div class="skill-bar"><div class="skill-fill skill-fill-teal" style="width: 92%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">ECMO Support</span><span class="font-semibold">78%</span></div>
+              <div class="skill-bar"><div class="skill-fill skill-fill-teal" style="width: 78%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">Sepsis Protocol</span><span class="font-semibold">95%</span></div>
+              <div class="skill-bar"><div class="skill-fill skill-fill-teal" style="width: 95%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">Cardiac Monitoring</span><span class="font-semibold">88%</span></div>
+              <div class="skill-bar"><div class="skill-fill skill-fill-teal" style="width: 88%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= VIEW 4: HTD CONSOLE ============= -->
+<div id="view-htd" class="view">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 md:gap-4 mb-5 md:mb-6">
+      <div>
+        <div class="text-xs text-gray-500 uppercase font-semibold">HTD Operations Console</div>
+        <h1 class="text-xl md:text-3xl font-bold text-navy">Hire · Train · Deploy Engine</h1>
+        <p class="text-gray-600 text-xs md:text-sm">Nurse lifecycle management — from Tier 2/3 sourcing through bonded deployment</p>
+      </div>
+      <div class="flex gap-2">
+        <select class="px-3 py-2 border border-gray-300 rounded-lg text-xs md:text-sm">
+          <option>All Batches</option>
+          <option>Batch 1 — ICU Gold</option>
+          <option>Batch 2 — Dialysis Silver</option>
+          <option>Batch 3 — ER Silver</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- HTD Pipeline KPIs -->
+    <div class="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 mb-5 md:mb-6">
+      <div class="card p-3">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Sourced</div>
+        <div class="text-2xl font-bold text-navy">412</div>
+        <div class="text-[10px] text-gray-500">from Tier 2/3</div>
+      </div>
+      <div class="card p-3">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Screened</div>
+        <div class="text-2xl font-bold text-navy">198</div>
+        <div class="text-[10px] text-teal">48% pass rate</div>
+      </div>
+      <div class="card p-3">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">In Training</div>
+        <div class="text-2xl font-bold text-orange">67</div>
+        <div class="text-[10px] text-orange">3 active batches</div>
+      </div>
+      <div class="card p-3">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Deployed</div>
+        <div class="text-2xl font-bold text-teal">89</div>
+        <div class="text-[10px] text-teal">at 12 hospitals</div>
+      </div>
+      <div class="card p-3">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Active Bonds</div>
+        <div class="text-2xl font-bold text-navy">76</div>
+        <div class="text-[10px] text-green-600">88% compliance</div>
+      </div>
+      <div class="card p-3">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Breakages</div>
+        <div class="text-2xl font-bold text-red-500">7</div>
+        <div class="text-[10px] text-gray-500">9.2% rate (target <15%)</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+      <!-- Active Batches -->
+      <div class="md:col-span-2 card p-4 md:p-6">
+        <h3 class="font-bold text-navy mb-4">Active Training Batches</h3>
+        <div class="space-y-4">
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xs" style="background: #DAA520;">G1</div>
+                <div>
+                  <div class="font-semibold text-sm text-navy">Batch G1 — ICU Gold Certification</div>
+                  <div class="text-xs text-gray-500">24 nurses · Week 8 of 16 · Medvarsity + Apollo Hospitals clinical rotation</div>
+                </div>
+              </div>
+              <span class="badge badge-gold">Gold Tier</span>
+            </div>
+            <div class="skill-bar" style="height: 8px;"><div class="skill-fill skill-fill-gold" style="width: 50%"></div></div>
+            <div class="grid grid-cols-4 gap-2 mt-3 text-xs">
+              <div><span class="text-gray-500">Source:</span> <b class="text-navy">Tier 2 AP/TN</b></div>
+              <div><span class="text-gray-500">Hospitals:</span> <b class="text-navy">6 booked</b></div>
+              <div><span class="text-gray-500">Bond value:</span> <b class="text-navy">₹55K each</b></div>
+              <div><span class="text-gray-500">Grad. ETA:</span> <b class="text-orange">Jun 2026</b></div>
+            </div>
+          </div>
+
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xs" style="background: #A0A0A0;">S2</div>
+                <div>
+                  <div class="font-semibold text-sm text-navy">Batch S2 — Dialysis Silver</div>
+                  <div class="text-xs text-gray-500">18 nurses · Week 4 of 10 · Medvarsity certified</div>
+                </div>
+              </div>
+              <span class="badge" style="background: #A0A0A020; color: #707070;">Silver Tier</span>
+            </div>
+            <div class="skill-bar" style="height: 8px;"><div class="skill-fill skill-fill-silver" style="width: 40%"></div></div>
+            <div class="grid grid-cols-4 gap-2 mt-3 text-xs">
+              <div><span class="text-gray-500">Source:</span> <b class="text-navy">Tier 3 Karnataka</b></div>
+              <div><span class="text-gray-500">Hospitals:</span> <b class="text-navy">4 booked</b></div>
+              <div><span class="text-gray-500">Bond value:</span> <b class="text-navy">₹40K each</b></div>
+              <div><span class="text-gray-500">Grad. ETA:</span> <b class="text-orange">May 2026</b></div>
+            </div>
+          </div>
+
+          <div class="border border-gray-200 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xs" style="background: #A0A0A0;">S3</div>
+                <div>
+                  <div class="font-semibold text-sm text-navy">Batch S3 — Emergency Care Silver</div>
+                  <div class="text-xs text-gray-500">25 nurses · Week 2 of 12 · MedSkills + simulation</div>
+                </div>
+              </div>
+              <span class="badge" style="background: #A0A0A020; color: #707070;">Silver Tier</span>
+            </div>
+            <div class="skill-bar" style="height: 8px;"><div class="skill-fill skill-fill-silver" style="width: 17%"></div></div>
+            <div class="grid grid-cols-4 gap-2 mt-3 text-xs">
+              <div><span class="text-gray-500">Source:</span> <b class="text-navy">Tier 2 TN/Kerala</b></div>
+              <div><span class="text-gray-500">Hospitals:</span> <b class="text-navy">3 confirmed</b></div>
+              <div><span class="text-gray-500">Bond value:</span> <b class="text-navy">₹40K each</b></div>
+              <div><span class="text-gray-500">Grad. ETA:</span> <b class="text-orange">Jul 2026</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bond Management Panel -->
+      <div class="space-y-5 md:space-y-6">
+        <div class="card p-4 md:p-6">
+          <h3 class="font-bold text-navy mb-3">Bond Portfolio Summary</h3>
+          <div class="text-center mb-4">
+            <div class="text-3xl font-bold text-navy">₹41.8L</div>
+            <div class="text-xs text-gray-500">total outstanding bond value</div>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">Months 1-6 (high risk)</span><span class="font-bold text-red-500">₹18.2L</span></div>
+              <div class="bond-bar"><div class="bond-fill bg-red-400" style="width: 44%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">Months 7-12 (moderate)</span><span class="font-bold text-orange">₹14.6L</span></div>
+              <div class="bond-bar"><div class="bond-fill bg-orange" style="width: 35%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">Months 13-18 (low risk)</span><span class="font-bold text-green-600">₹9.0L</span></div>
+              <div class="bond-bar"><div class="bond-fill bg-green-500" style="width: 22%"></div></div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-200 text-xs">
+            <div class="flex justify-between"><span class="text-gray-500">Breakage rate (YTD)</span><b class="text-navy">9.2%</b></div>
+            <div class="flex justify-between mt-1"><span class="text-gray-500">Recovery collected</span><b class="text-teal">₹3.1L</b></div>
+            <div class="flex justify-between mt-1"><span class="text-gray-500">Target breakage</span><b class="text-gray-500">&lt;15%</b></div>
+          </div>
+        </div>
+
+        <div class="card p-4 md:p-6">
+          <h3 class="font-bold text-navy mb-3">Deployment Map</h3>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between p-2 bg-gray-50 rounded"><span class="text-gray-700">Fortis Bannerghatta</span><b class="text-navy">14 nurses</b></div>
+            <div class="flex justify-between p-2 bg-gray-50 rounded"><span class="text-gray-700">Apollo Chennai</span><b class="text-navy">22 nurses</b></div>
+            <div class="flex justify-between p-2 bg-gray-50 rounded"><span class="text-gray-700">KIMS Hyderabad</span><b class="text-navy">18 nurses</b></div>
+            <div class="flex justify-between p-2 bg-gray-50 rounded"><span class="text-gray-700">Manipal Bangalore</span><b class="text-navy">11 nurses</b></div>
+            <div class="flex justify-between p-2 bg-gray-50 rounded"><span class="text-gray-700">Aster Kochi</span><b class="text-navy">8 nurses</b></div>
+            <div class="flex justify-between p-2 bg-gray-50 rounded"><span class="text-gray-700">Others (7)</span><b class="text-navy">16 nurses</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= VIEW 5: OPS COMMAND CENTER ============= -->
+<div id="view-ops" class="view">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 md:gap-4 mb-5 md:mb-6">
+      <div>
+        <div class="text-xs text-gray-500 uppercase font-semibold">AKVL Internal Console</div>
+        <h1 class="text-xl md:text-3xl font-bold text-navy">Operations Command Center</h1>
+        <p class="text-gray-600 text-xs md:text-sm">Real-time P&L, BD pipeline, and Capability Staircase enrolment tracking</p>
+      </div>
+      <select class="px-3 py-2 border border-gray-300 rounded-lg text-xs md:text-sm w-full md:w-auto">
+        <option>All regions</option>
+        <option>South India</option>
+        <option>West India</option>
+      </select>
+    </div>
+
+    <!-- KPI Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mb-5 md:mb-6">
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Year 1 Revenue</div>
+        <div class="text-2xl font-bold text-navy">₹3.8 Cr</div>
+        <div class="text-[10px] text-teal mt-1">36% of ₹10.6 Cr target</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Active Pipeline</div>
+        <div class="text-2xl font-bold text-navy">₹12.4 Cr</div>
+        <div class="text-[10px] text-gray-500 mt-1">47 opportunities</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">Audits → Deals</div>
+        <div class="text-2xl font-bold text-navy">67%</div>
+        <div class="text-[10px] text-teal mt-1">8 of 12 converted</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">HTD Deployed</div>
+        <div class="text-2xl font-bold text-navy">89</div>
+        <div class="text-[10px] text-orange mt-1">33% of 270 target</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-[10px] text-gray-500 uppercase font-semibold">EBITDA</div>
+        <div class="text-2xl font-bold text-navy">₹(1.1) Cr</div>
+        <div class="text-[10px] text-gray-500 mt-1">Break-even: M14</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+      <!-- BD Pipeline Funnel -->
+      <div class="md:col-span-2 card p-4 md:p-6">
+        <h3 class="font-bold text-navy mb-4">BD Pipeline — Audit-Led Sales Funnel</h3>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-gray-700 font-semibold">Audit Requested</span>
+              <span class="text-gray-500">18 hospitals · ₹5.2 Cr TCV</span>
+            </div>
+            <div class="h-8 bg-blue-100 rounded-lg relative">
+              <div class="h-full bg-blue-500 rounded-lg" style="width: 100%"></div>
+              <span class="absolute inset-0 flex items-center px-3 text-xs font-semibold text-white">18</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-gray-700 font-semibold">Audit Delivered + Score Shared</span>
+              <span class="text-gray-500">12 hospitals · ₹3.8 Cr TCV</span>
+            </div>
+            <div class="h-8 bg-blue-100 rounded-lg relative">
+              <div class="h-full bg-blue-500 rounded-lg" style="width: 67%"></div>
+              <span class="absolute inset-0 flex items-center px-3 text-xs font-semibold text-white">12</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-gray-700 font-semibold">Bundle Proposal (Training + HTD)</span>
+              <span class="text-gray-500">8 hospitals · ₹2.4 Cr TCV</span>
+            </div>
+            <div class="h-8 bg-teal/20 rounded-lg relative">
+              <div class="h-full bg-teal rounded-lg" style="width: 44%"></div>
+              <span class="absolute inset-0 flex items-center px-3 text-xs font-semibold text-white">8</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-gray-700 font-semibold">Negotiation</span>
+              <span class="text-gray-500">5 hospitals · ₹1.5 Cr TCV</span>
+            </div>
+            <div class="h-8 bg-orange/20 rounded-lg relative">
+              <div class="h-full bg-orange rounded-lg" style="width: 28%"></div>
+              <span class="absolute inset-0 flex items-center px-3 text-xs font-semibold text-white">5</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-gray-700 font-semibold">Closed Won</span>
+              <span class="text-gray-500">4 hospitals · ₹0.95 Cr TCV</span>
+            </div>
+            <div class="h-8 bg-green-100 rounded-lg relative">
+              <div class="h-full bg-green-600 rounded-lg" style="width: 22%"></div>
+              <span class="absolute inset-0 flex items-center px-3 text-xs font-semibold text-white">4</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-200 flex flex-wrap justify-between text-xs gap-2">
+          <div><span class="text-gray-500">Win rate:</span> <b class="text-navy">22%</b></div>
+          <div><span class="text-gray-500">Audit→Deal:</span> <b class="text-teal">67%</b></div>
+          <div><span class="text-gray-500">Avg cycle:</span> <b class="text-navy">47 days</b></div>
+          <div><span class="text-gray-500">Avg deal:</span> <b class="text-navy">₹24L</b></div>
+        </div>
+      </div>
+
+      <!-- Revenue by Pillar -->
+      <div class="card p-4 md:p-6">
+        <h3 class="font-bold text-navy mb-4">Revenue by Model (YTD)</h3>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-gray-700 font-semibold">Hospital-Sponsored (40%)</span>
+              <span class="font-bold text-navy">₹1.52 Cr</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill skill-fill-teal" style="width: 40%"></div></div>
+            <div class="text-[10px] text-gray-500 mt-0.5">Bronze + Silver bundles</div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-gray-700 font-semibold">Nurse Self-Pay (25%)</span>
+              <span class="font-bold text-navy">₹0.95 Cr</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill skill-fill-silver" style="width: 25%"></div></div>
+            <div class="text-[10px] text-gray-500 mt-0.5">Silver + Gold upskilling</div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-gray-700 font-semibold">HTD Managed (35%)</span>
+              <span class="font-bold text-navy">₹1.33 Cr</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill skill-fill-orange" style="width: 35%"></div></div>
+            <div class="text-[10px] text-gray-500 mt-0.5">Bonded deployment contracts</div>
+          </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-gray-200">
+          <h4 class="font-semibold text-navy text-xs mb-3">Staircase Enrolments (YTD)</h4>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full" style="background: #B87333;"></div>
+                <span>Bronze</span>
+              </div>
+              <b class="text-navy">142</b>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full" style="background: #A0A0A0;"></div>
+                <span>Silver</span>
+              </div>
+              <b class="text-navy">89</b>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full" style="background: #DAA520;"></div>
+                <span>Gold</span>
+              </div>
+              <b class="text-navy">34</b>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full" style="background: #7B68AE;"></div>
+                <span>Platinum</span>
+              </div>
+              <b class="text-navy">5</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= VIEW 6: CLINICAL AUDIT TOOL ============= -->
+<div id="view-audit" class="view">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 md:gap-4 mb-5 md:mb-6">
+      <div>
+        <div class="text-xs text-gray-500 uppercase font-semibold">Demand Generation Tool</div>
+        <h1 class="text-xl md:text-3xl font-bold text-navy">Consultative Clinical Audit</h1>
+        <p class="text-gray-600 text-xs md:text-sm">3-layer assessment that quantifies workforce gaps and creates purchase intent</p>
+      </div>
+      <button class="px-4 py-2 bg-teal text-white rounded-lg text-xs md:text-sm font-medium">+ Start New Audit</button>
+    </div>
+
+    <!-- Audit 3-Layer Process -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+      <div class="card p-5 border-t-4 border-teal">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="audit-score bg-teal/10 text-teal">L1</div>
+          <div>
+            <h3 class="font-bold text-navy text-sm">Workforce Data Audit</h3>
+            <span class="badge badge-green">Free · 2 hours</span>
+          </div>
+        </div>
+        <p class="text-xs text-gray-600 mb-3">Headcount by ward, vacancy rates, attrition patterns, nurse-to-patient ratios, shift coverage gaps.</p>
+        <div class="bg-gray-50 rounded-lg p-3 text-xs space-y-1">
+          <div class="font-semibold text-navy mb-1">Sample Output:</div>
+          <div class="flex justify-between"><span class="text-gray-600">Total nursing staff</span><span class="font-semibold">620</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Vacancy rate</span><span class="font-semibold text-red-500">18%</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">90-day attrition</span><span class="font-semibold text-red-500">34%</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Shift coverage</span><span class="font-semibold text-orange">71%</span></div>
+        </div>
+      </div>
+
+      <div class="card p-5 border-t-4 border-orange">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="audit-score bg-orange/10 text-orange">L2</div>
+          <div>
+            <h3 class="font-bold text-navy text-sm">Competency Mapping</h3>
+            <span class="badge badge-orange">₹2-5L · 1-2 weeks</span>
+          </div>
+        </div>
+        <p class="text-xs text-gray-600 mb-3">Skills assessment per nurse mapped to NABH 5th Edition requirements. Generates the Competency Health Score.</p>
+        <div class="bg-gray-50 rounded-lg p-3 text-xs space-y-1">
+          <div class="font-semibold text-navy mb-1">Sample Output:</div>
+          <div class="flex justify-between"><span class="text-gray-600">Competency Score</span><span class="font-semibold text-orange">64/100</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">ICU Level-3 gap</span><span class="font-semibold text-red-500">12 nurses</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Dialysis gap</span><span class="font-semibold text-red-500">8 nurses</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">NABH readiness</span><span class="font-semibold text-orange">71%</span></div>
+        </div>
+      </div>
+
+      <div class="card p-5 border-t-4" style="border-color: #DAA520;">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="audit-score bg-yellow-50" style="color: #DAA520;">L3</div>
+          <div>
+            <h3 class="font-bold text-navy text-sm">Financial Impact Model</h3>
+            <span class="badge badge-gold">Included · Creates urgency</span>
+          </div>
+        </div>
+        <p class="text-xs text-gray-600 mb-3">Translates competency gaps into ₹ margin leak, then shows cost of training vs. cost of replacement.</p>
+        <div class="bg-gray-50 rounded-lg p-3 text-xs space-y-1">
+          <div class="font-semibold text-navy mb-1">Sample Output:</div>
+          <div class="flex justify-between"><span class="text-gray-600">Annual margin leak</span><span class="font-semibold text-red-500">₹4.8 Cr</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Training investment</span><span class="font-semibold text-teal">₹16L</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Replacement cost</span><span class="font-semibold text-red-500">₹1.12 Cr</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Training ROI</span><span class="font-semibold text-green-600">3.2×</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample Audit Report -->
+    <div class="card p-4 md:p-6 mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-navy">Sample Audit Report — Fortis Bannerghatta</h3>
+        <div class="flex gap-2">
+          <span class="badge badge-teal">Completed</span>
+          <span class="text-xs text-gray-500">April 8, 2026</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div class="text-center p-4 bg-red-50 rounded-lg">
+          <div class="text-3xl font-bold text-red-500">64</div>
+          <div class="text-xs text-gray-600 mt-1">Competency Score</div>
+          <div class="text-[10px] text-red-500 font-semibold">MODERATE RISK</div>
+        </div>
+        <div class="text-center p-4 bg-orange-50 rounded-lg">
+          <div class="text-3xl font-bold text-orange">₹4.8Cr</div>
+          <div class="text-xs text-gray-600 mt-1">Annual Margin Leak</div>
+          <div class="text-[10px] text-orange font-semibold">FROM SKILL GAPS</div>
+        </div>
+        <div class="text-center p-4 bg-green-50 rounded-lg">
+          <div class="text-3xl font-bold text-green-600">₹16L</div>
+          <div class="text-xs text-gray-600 mt-1">Training Fix Cost</div>
+          <div class="text-[10px] text-green-600 font-semibold">3.2× ROI</div>
+        </div>
+        <div class="text-center p-4 bg-teal-light rounded-lg">
+          <div class="text-3xl font-bold text-teal">78</div>
+          <div class="text-xs text-gray-600 mt-1">Projected Score</div>
+          <div class="text-[10px] text-teal font-semibold">POST INTERVENTION</div>
+        </div>
+      </div>
+
+      <!-- Recommended Actions -->
+      <h4 class="font-semibold text-navy text-sm mb-3">Recommended AKVL Interventions</h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background: #DAA520;">G</div>
+            <span class="font-semibold text-sm text-navy">Gold: ICU Upskilling</span>
+          </div>
+          <div class="text-xs text-gray-600 space-y-1">
+            <div>12 nurses × 16 weeks × ₹1.8L</div>
+            <div>Medvarsity certified + clinical rotation</div>
+            <div class="font-semibold text-teal mt-2">Saves ₹36L vs replacement</div>
+          </div>
+          <button class="mt-3 w-full py-1.5 bg-teal text-white rounded-md text-xs font-semibold">Enroll Now →</button>
+        </div>
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background: #A0A0A0;">S</div>
+            <span class="font-semibold text-sm text-navy">Silver: Dialysis Cert</span>
+          </div>
+          <div class="text-xs text-gray-600 space-y-1">
+            <div>8 nurses × 10 weeks × ₹72K</div>
+            <div>Medvarsity + simulation lab</div>
+            <div class="font-semibold text-teal mt-2">Saves ₹22L vs replacement</div>
+          </div>
+          <button class="mt-3 w-full py-1.5 bg-teal text-white rounded-md text-xs font-semibold">Enroll Now →</button>
+        </div>
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold bg-orange">H</div>
+            <span class="font-semibold text-sm text-navy">HTD: Fill ICU Gaps</span>
+          </div>
+          <div class="text-xs text-gray-600 space-y-1">
+            <div>4 bonded nurses from pipeline</div>
+            <div>Gold-trained, deploy in 3 weeks</div>
+            <div class="font-semibold text-teal mt-2">18-month bonded contract</div>
+          </div>
+          <button class="mt-3 w-full py-1.5 bg-orange text-white rounded-md text-xs font-semibold">Request HTD →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Audits Table -->
+    <div class="card p-4 md:p-6">
+      <h3 class="font-bold text-navy mb-4">Recent Audits — Pipeline Tracker</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-2 text-gray-500 font-semibold">Hospital</th>
+              <th class="text-left py-2 text-gray-500 font-semibold">Score</th>
+              <th class="text-left py-2 text-gray-500 font-semibold">Margin Leak</th>
+              <th class="text-left py-2 text-gray-500 font-semibold">Recommended</th>
+              <th class="text-left py-2 text-gray-500 font-semibold">Status</th>
+              <th class="text-left py-2 text-gray-500 font-semibold">TCV</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100">
+              <td class="py-2 font-semibold text-navy">Fortis Bannerghatta</td>
+              <td class="py-2"><span class="badge badge-orange">64</span></td>
+              <td class="py-2 text-red-500 font-semibold">₹4.8 Cr</td>
+              <td class="py-2">Gold ICU + Silver Dialysis + HTD</td>
+              <td class="py-2"><span class="badge badge-green">Won</span></td>
+              <td class="py-2 font-semibold text-navy">₹28L</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-2 font-semibold text-navy">KIMS Hyderabad</td>
+              <td class="py-2"><span class="badge badge-red">52</span></td>
+              <td class="py-2 text-red-500 font-semibold">₹6.2 Cr</td>
+              <td class="py-2">Bronze NABH + Gold ICU + HTD</td>
+              <td class="py-2"><span class="badge badge-orange">Negotiating</span></td>
+              <td class="py-2 font-semibold text-navy">₹42L</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-2 font-semibold text-navy">Aster Kochi</td>
+              <td class="py-2"><span class="badge badge-gold">71</span></td>
+              <td class="py-2 text-red-500 font-semibold">₹2.1 Cr</td>
+              <td class="py-2">Silver ER + Bronze refresh</td>
+              <td class="py-2"><span class="badge badge-teal">Proposal</span></td>
+              <td class="py-2 font-semibold text-navy">₹18L</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-2 font-semibold text-navy">Narayana Health</td>
+              <td class="py-2"><span class="badge badge-navy">—</span></td>
+              <td class="py-2 text-gray-400">Pending</td>
+              <td class="py-2 text-gray-400">Awaiting L2</td>
+              <td class="py-2"><span class="badge badge-navy">Audit Booked</span></td>
+              <td class="py-2 text-gray-400">TBD</td>
+            </tr>
+            <tr>
+              <td class="py-2 font-semibold text-navy">Yashoda Hospitals</td>
+              <td class="py-2"><span class="badge badge-navy">—</span></td>
+              <td class="py-2 text-gray-400">Pending</td>
+              <td class="py-2 text-gray-400">Awaiting L1</td>
+              <td class="py-2"><span class="badge badge-navy">Requested</span></td>
+              <td class="py-2 text-gray-400">TBD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= FOOTER ============= -->
+<footer class="bg-navy-dark text-white/60 text-xs py-5 md:py-6 mt-10 md:mt-12">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row gap-1 md:gap-0 md:justify-between md:items-center text-center md:text-left">
+    <div>Apollo WorkforceOne · Mockup v2.0 · B2B Commercial Engine · All data is illustrative</div>
+    <div>Built for AKVL CEO presentation · April 2026</div>
+  </div>
+</footer>
+
+<script>
+function switchView(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-' + view).classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
