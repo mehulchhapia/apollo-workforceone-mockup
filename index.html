@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apollo WorkforceOne — Platform Mockups</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0B3D5B; --teal: #00897B; --orange: #F57C00; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #F5F7FA; min-height: 100vh; }
+  .hero { background: linear-gradient(135deg, #0B3D5B 0%, #082C43 100%); color: white; padding: 60px 24px 48px; text-align: center; }
+  .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 12px; }
+  .hero p { font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+  .container { max-width: 900px; margin: -40px auto 40px; padding: 0 24px; }
+  .card { background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 32px; margin-bottom: 24px; transition: all 0.2s; text-decoration: none; display: block; color: inherit; }
+  .card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.12); transform: translateY(-4px); }
+  .version-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
+  .v1-badge { background: #DBEAFE; color: #1E40AF; }
+  .v2-badge { background: #D1FAE5; color: #065F46; }
+  .card h2 { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .card p { font-size: 0.9rem; color: #5A6B78; line-height: 1.6; }
+  .card .views { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .card .views span { background: #F0F4F7; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; color: #5A6B78; }
+  .arrow { display: inline-block; margin-left: 8px; transition: transform 0.2s; }
+  .card:hover .arrow { transform: translateX(4px); }
+  .footer { text-align: center; padding: 24px; font-size: 12px; color: #9CA3AF; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>Apollo WorkforceOne</h1>
+  <p>Platform mockups for the AKVL CEO presentation. Choose a version below to explore the interactive prototype.</p>
+</div>
+
+<div class="container">
+  <a href="v2/" class="card">
+    <span class="version-badge v2-badge">v2.0 — CURRENT</span>
+    <h2>B2B Commercial Engine <span class="arrow">→</span></h2>
+    <p>Updated platform reflecting the 3-layer GTM architecture: Consultative Clinical Audits, HTD deployment engine with bonding, and the Capability Staircase (Bronze/Silver/Gold/Platinum). Includes 6 interactive views.</p>
+    <div class="views">
+      <span>Overview</span>
+      <span>Hospital CHRO</span>
+      <span>Nurse Career Passport</span>
+      <span>HTD Console</span>
+      <span>Ops Command Center</span>
+      <span>Clinical Audit Tool</span>
+    </div>
+  </a>
+
+  <a href="v1/" class="card">
+    <span class="version-badge v1-badge">v1.0 — ORIGINAL</span>
+    <h2>Initial Platform Concept <span class="arrow">→</span></h2>
+    <p>Original 4-pillar platform mockup: Permanent Placement, Contract Staffing, Upskilling, and Managed Workforce (RPO). Four interactive views with the VRD-certified nurse registry concept.</p>
+    <div class="views">
+      <span>Overview</span>
+      <span>Hospital Portal</span>
+      <span>Nurse App</span>
+      <span>AKVL Ops Console</span>
+    </div>
+  </a>
+</div>
+
+<div class="footer">
+  Apollo WorkforceOne · All data is illustrative · Built for AKVL CEO presentation · April 2026
+</div>
+</body>
+</html>
